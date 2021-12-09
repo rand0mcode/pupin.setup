@@ -1,0 +1,6 @@
+.terraform/
+.terraform.lock.hcl
+secrets.auto.tfvars
+*.tfstate
+*.tfstate.backup
+.vagrant/
