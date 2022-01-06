@@ -22,7 +22,7 @@ resource "hcloud_network_subnet" "subnet" {
 
 resource "hcloud_server" "nodes" {
   for_each    = var.machines
-  name        = "${each.key}.priv.${var.dns_zone}"
+  name        = "${each.key}.priv.rw.${var.dns_zone}"
   image       = each.value.image
   server_type = each.value.server_type
   ssh_keys    = data.hcloud_ssh_keys.all_keys.ssh_keys.*.name
@@ -39,7 +39,7 @@ resource "hcloud_server" "nodes" {
 resource "hetznerdns_record" "private_addresses" {
     for_each = var.machines
     zone_id = data.hetznerdns_zone.dns_zone.id
-    name = "${each.key}.priv"
+    name = "${each.key}.priv.rw"
     value = each.value.ip
     type = "A"
     ttl= 60
@@ -48,7 +48,7 @@ resource "hetznerdns_record" "private_addresses" {
 resource "hetznerdns_record" "public_addresses" {
     for_each = var.machines
     zone_id = data.hetznerdns_zone.dns_zone.id
-    name = "${each.key}.pub"
+    name = "${each.key}.pub.rw"
     value = hcloud_server.nodes[each.key].ipv4_address
     type = "A"
     ttl= 60
