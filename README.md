@@ -4,7 +4,7 @@ Setup files for getting hetzner vms via terraform or starting some vagrant boxes
 
 ## Using pupin.setup
 
-### Hetzner Cloud
+### Terraform - Hetzner Cloud
 
 To use terraform you should create a `secrets.auto.tfvars` in the terraform directory.
 We assume you have a hetzner dns zone and be able to spin up cloud instances.
@@ -23,6 +23,29 @@ bolt task run terraform::apply -t localhost dir="terraform"
 # ... do something
 
 bolt task run terraform::destroy -t localhost dir="terraform"
+```
+
+or with plain terraform
+
+```
+cd terraform
+
+terraform apply
+
+# ... do something
+
+terraform destroy
+```
+
+#### re deploy a resource
+
+first mark it as tainted and than apply again
+
+```
+cd terraform
+
+terraform taint 'hcloud_server.nodes["kibana"]'
+terraform apply
 ```
 
 ### WIP: Vagrant
