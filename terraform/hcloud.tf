@@ -22,7 +22,7 @@ resource "hcloud_network_subnet" "subnet" {
 
 resource "hcloud_server" "nodes" {
   for_each    = var.machines
-  name        = "${each.key}.${var.ext_sub_domain}.${var.dns_zone}"
+  name        = "${each.key}.${var.int_sub_domain}.${var.dns_zone}"
   image       = each.value.image
   server_type = each.value.server_type
   ssh_keys    = data.hcloud_ssh_keys.all_keys.ssh_keys.*.name
