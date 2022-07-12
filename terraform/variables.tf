@@ -25,3 +25,15 @@ variable "machines" {
     puppetdb = { ip = "10.0.8.9",  server_type = "cx11", image = "centos-stream-8" }
   }
 }
+
+variable "ext_sub_domain" {
+  type = string
+  description = "external subdomain name"
+  default = "pub.rw"
+}
+
+variable "int_sub_domain" {
+  type = string
+  description = "external subdomain name"
+  default = "priv.rw"
+}
